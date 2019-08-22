@@ -25,7 +25,7 @@ object Main {
       .map { f =>
         EventStream.fromFuture(f)
       }
-      .getOrElse(EventStream.fromSeq(Seq.empty))
+      .getOrElse(EventStream.fromSeq(Seq.empty, emitOnce = true))
   }.flatten
 
   val app = div(

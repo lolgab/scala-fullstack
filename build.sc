@@ -7,13 +7,13 @@ import mill.util.Ctx
 import coursier.maven.MavenRepository
 
 object Config {
-  def scalaVersion = "2.12.7"
-  def scalaJSVersion = "0.6.25"
-  def laminarVersion = "0.4"
+  def scalaVersion = "2.12.9"
+  def scalaJSVersion = "0.6.28"
+  def laminarVersion = "0.7.1"
   def covenantVersion = "master-SNAPSHOT"
-  def akkaHttpVersion = "10.1.5"
-  def akkaStreamVersion = "2.5.12"
-  def boopickleVersion = "1.3.0"
+  def akkaHttpVersion = "10.1.9"
+  def akkaStreamVersion = "2.5.25"
+  def boopickleVersion = "1.3.1"
 
   def sharedDependencies = Agg(
     ivy"io.suzaku::boopickle::$boopickleVersion",

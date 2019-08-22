@@ -1,3 +1,6 @@
 out/
-.idea/
-.idea_modules/
+.idea
+.idea_modules
+.metals
+.bloop
+.DS_Store

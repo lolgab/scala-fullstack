@@ -9,6 +9,6 @@ import scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 
 object Client {
-  val client = HttpClient[ByteBuffer]("http://localhost:8080")
+  val client = HttpClient[ByteBuffer]("/api")
   val api: Api[Future] = client.wire[Api[Future]]
 }

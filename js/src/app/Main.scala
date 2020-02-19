@@ -16,11 +16,12 @@ object Main {
     placeholder := "Insert a number"
   )
 
-  val incrementStream = incrementInput.events(onInput).mapTo(incrementInput.ref.value)
+  val incrementStream =
+    incrementInput.events(onInput).mapTo(incrementInput.ref.value)
 
   val resultStream: EventStream[Int] = incrementStream.map { s =>
     val optionInt = Try(s.toInt).toOption
-    val result    = optionInt.map(Client.api.increment) //executed on server!
+    val result = optionInt.map(Client.api.increment) //executed on server!
     result
       .map { f =>
         EventStream.fromFuture(f)

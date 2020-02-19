@@ -19,15 +19,26 @@ import cats.implicits._
 import scala.concurrent.Future
 
 object Server {
-  implicit val system           = ActorSystem("my-system")
-  implicit val materializer     = ActorMaterializer()
+  implicit val system = ActorSystem("my-system")
+  implicit val materializer = ActorMaterializer()
   implicit val executionContext = system.dispatcher
 
   val router = Router[ByteBuffer, Future].route[Api[Future]](ApiImpl)
 
-  val route = respondWithHeader(`Access-Control-Allow-Origin`.*)(AkkaHttpRoute.fromFutureRouter(router))
+  val apiRoute = pathPrefix("api")(AkkaHttpRoute.fromFutureRouter(router))
 
-  val loggedRoute = DebuggingDirectives.logRequestResult("Client Rest", Logging.InfoLevel)(route)
+  val filesRoutes = pathPrefix("") {
+    getFromDirectory("www")
+  } ~ path("") {
+    getFromFile("www/index.html")
+  } ~ path("index.js") {
+    getFromFile("out/js/fastOpt/dest/out.js")
+  }
+
+  val loggedRoute =
+    DebuggingDirectives.logRequestResult("Client Rest", Logging.InfoLevel)(
+      filesRoutes ~ apiRoute
+    )
 
   def main(args: Array[String]): Unit = {
     Http().bindAndHandle(loggedRoute, interface = "0.0.0.0", port = 8080)

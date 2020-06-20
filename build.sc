@@ -7,13 +7,13 @@ import mill.util.Ctx
 import coursier.maven.MavenRepository
 
 object Config {
-  def scalaVersion = "2.13.1"
-  def scalaJSVersion = "0.6.31"
-  def laminarVersion = "0.7.2"
-  def covenantVersion = "master-SNAPSHOT"
-  def akkaHttpVersion = "10.1.11"
-  def akkaStreamVersion = "2.6.3"
-  def boopickleVersion = "1.3.1"
+  def scalaVersion = "2.13.2"
+  def scalaJSVersion = "1.1.0"
+  def laminarVersion = "0.9.1"
+  def covenantVersion = "0090f47"
+  def akkaHttpVersion = "10.1.12"
+  def akkaStreamVersion = "2.6.6"
+  def boopickleVersion = "1.3.3"
 
   def sharedDependencies = Agg(
     ivy"io.suzaku::boopickle::$boopickleVersion",
@@ -55,6 +55,4 @@ object js extends Common with ScalaJSModule {
   def scalaJSVersion = Config.scalaJSVersion
 
   def ivyDeps = super.ivyDeps() ++ Config.jsDependencies
-
-  def scalacOptions = T(super.scalacOptions() ++ Seq("-P:scalajs:sjsDefinedByDefault"))
 }
